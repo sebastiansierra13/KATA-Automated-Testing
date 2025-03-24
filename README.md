@@ -13,27 +13,27 @@ Este repositorio contiene pruebas automatizadas para **OrangeHRM**, utilizando *
 ## Estructura del Proyecto  
 ```
 📚 orangehrm-tests (Proyecto raíz)
-├── 📚 src/main/java/com/bdb/automated/testing/pages (Page Objects - POM)
-│   ├── BasePage.java (Acciones comunes a todas las páginas)
-│   ├── LoginPage.java (Elementos y acciones de login)
-│   ├── DashboardPage.java (Validaciones después de login)
+├── 📚 src/main/java/com/bdb/automated/testing/pages 
+│   ├── BasePage.java 
+│   ├── LoginPage.java 
+│   ├── DashboardPage.java 
 │
-├── 📚 src/test/java/com/bdb/automated/testing/test (Casos de prueba en TestNG)
-│   ├── BaseTest.java (Configuración general de WebDriver)
-│   ├── LoginTest.java (Casos de prueba automatizados para login)
+├── 📚 src/test/java/com/bdb/automated/testing/test 
+│   ├── BaseTest.java 
+│   ├── LoginTest.java 
 │
-├── 📚 src/test/resources (Configuraciones externas)
-│   ├── config.properties (URLs, credenciales, etc.)
+├── 📚 src/test/resources 
+│   ├── config.properties 
 │
-├── pom.xml (Dependencias de Maven: Selenium, TestNG, WebDriverManager)
+├── pom.xml 
 ```
 
 ##  Instalación y Configuración  
 
 ### 1️⃣ Clonar el Repositorio  
 ```bash
-git clone https://github.com/tu-usuario/tu-repositorio.git
-cd tu-repositorio
+git clone https://github.com/sebastiansierra13/KATA-Automated-Testing.git
+cd KATA-Automated-Testing
 ```
 
 ### 2️⃣ Instalar Dependencias  
@@ -44,7 +44,7 @@ mvn clean install
 ### 3️⃣ Configurar el Proyecto  
 En `src/test/resources/config.properties`, define los valores de configuración, como:  
 ```
-base.url=https://opensource-demo.orangehrmlive.com
+base.url=https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
 browser=chrome
 ```
 
