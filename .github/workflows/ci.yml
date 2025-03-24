@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '24'
+          java-version: '17'
           cache: 'maven'
 
       - name: Verificar versión de Java
@@ -35,11 +35,20 @@ jobs:
       - name: Verificar si Allure generó resultados
         run: ls -la target/allure-results || echo "Allure results directory not found!"
 
-      - name: Generar reportes Allure
-        run: mvn allure:report
+      - name: Instalar Allure CommandLine
+        run: |
+          curl -o allure-commandline.tgz -OLs https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.25.0/allure-commandline-2.25.0.tgz
+          tar -zxvf allure-commandline.tgz -C /tmp
+          sudo ln -s /tmp/allure-2.25.0/bin/allure /usr/bin/allure
+          allure --version
+
+      - name: Generar reportes Allure directamente
+        if: always()
+        run: allure generate target/allure-results -o target/allure-report --clean
 
       - name: Guardar reportes como artefacto
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: Test-Reports
-          path: target/site/allure-maven/index.html
+          name: allure-report
+          path: target/allure-report
