@@ -27,13 +27,13 @@ public class LoginTest extends BaseTest {
      */
     @Test
     public void testLoginExitoso() {
-        loginPage.loginConCredenciales("Admin", "admin123");
+        loginPage.loginWithCredentials("Admin", "admin123");
 
         // Instanciamos DashboardPage después del login
         DashboardPage dashboardPage = new DashboardPage(driver);
 
         // Validamos que el usuario esté en el dashboard
-        Assert.assertTrue(dashboardPage.estaEnDashboard(), "El usuario no llegó al Dashboard.");
+        Assert.assertTrue(dashboardPage.isInDashboard(), "El usuario no llegó al Dashboard.");
     }
 
 
@@ -41,31 +41,31 @@ public class LoginTest extends BaseTest {
      * Prueba de inicio de sesión con contraseña incorrecta.
      */
     @Test
-    public void testLoginConPasswordIncorrecto() {
-        loginPage.loginConCredenciales("Admin", "passwordIncorrecto");
+    public void testLoginWithPasswordIncorrect() {
+        loginPage.loginWithCredentials("Admin", "passwordIncorrecto");
 
         // Validar mensaje de error
-        Assert.assertEquals(loginPage.obtenerMensajeError(), "Invalid credentials", "El mensaje de error no es correcto.");
+        Assert.assertEquals(loginPage.getErrorMessage(), "Invalid credentials", "El mensaje de error no es correcto.");
     }
 
     /**
      * Prueba de inicio de sesión con campos vacíos.
      * Usa DataProvider para probar usuario vacío, contraseña vacía o ambos vacíos.
      */
-    @Test(dataProvider = "datosLoginInvalidos")
-    public void testLoginConCamposVacios(String usuario, String contraseña, String mensajeEsperado) {
-        loginPage.loginConCredenciales(usuario, contraseña);
+    @Test(dataProvider = "dataLoginInvalid")
+    public void testLoginWithEmptyFields(String user, String pass, String messageExpected) {
+        loginPage.loginWithCredentials(user, pass);
 
         // Validar mensaje de error esperado
-        Assert.assertEquals(loginPage.obtenerMensajeError(), mensajeEsperado, "El mensaje de error no es correcto.");
+        Assert.assertEquals(loginPage.getErrorMessage(), messageExpected, "El mensaje de error no es correcto.");
     }
 
     /**
      * Proveedor de datos para login con campos vacíos.
      * @return Datos de prueba con usuario, contraseña y mensaje esperado.
      */
-    @DataProvider(name = "datosLoginInvalidos")
-    public Object[][] datosLoginInvalidos() {
+    @DataProvider(name = "dataLoginInvalid")
+    public Object[][] dataLoginInvalid() {
         return new Object[][]{
                 {"", "admin123", "Required"}, // Usuario vacío
                 {"Admin", "", "Required"}, // Contraseña vacía

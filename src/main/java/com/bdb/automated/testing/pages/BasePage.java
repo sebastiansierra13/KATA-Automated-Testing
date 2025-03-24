@@ -31,7 +31,7 @@ public abstract class BasePage {
      * @param locator By selector del elemento.
      * @return WebElement visible.
      */
-    protected WebElement esperarElementoVisible(By locator) {
+    protected WebElement waitElementVisible(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
@@ -40,18 +40,18 @@ public abstract class BasePage {
      * @param locator By selector del elemento.
      */
     protected void click(By locator) {
-        esperarElementoVisible(locator).click();
+        waitElementVisible(locator).click();
     }
 
     /**
      * Escribe texto en un campo después de esperar su visibilidad.
      * @param locator By selector del campo.
-     * @param texto Texto a escribir.
+     * @param text Texto a escribir.
      */
-    protected void escribirTexto(By locator, String texto) {
-        WebElement elemento = esperarElementoVisible(locator);
-        elemento.clear();
-        elemento.sendKeys(texto);
+    protected void writeText(By locator, String text) {
+        WebElement element = waitElementVisible(locator);
+        element.clear();
+        element.sendKeys(text);
     }
 
     /**
@@ -59,8 +59,8 @@ public abstract class BasePage {
      * @param locator By selector del elemento.
      * @return Texto del elemento.
      */
-    protected String obtenerTexto(By locator) {
-        return esperarElementoVisible(locator).getText();
+    protected String getText(By locator) {
+        return waitElementVisible(locator).getText();
     }
 
     /**
@@ -68,17 +68,8 @@ public abstract class BasePage {
      * @param locator By selector del elemento.
      * @return Lista de WebElements encontrados (puede estar vacía si no hay coincidencias).
      */
-    protected List<WebElement> obtenerElementos(By locator) {
-        List<WebElement> elementos = driver.findElements(locator);
-        return elementos.isEmpty() ? List.of() : elementos;
-    }
-
-    /**
-     * Verifica si un elemento está presente en la página sin lanzar excepción.
-     * @param locator By selector del elemento.
-     * @return true si el elemento existe, false si no.
-     */
-    protected boolean existeElemento(By locator) {
-        return !driver.findElements(locator).isEmpty();
+    protected List<WebElement> getElements(By locator) {
+        List<WebElement> elements = driver.findElements(locator);
+        return elements.isEmpty() ? List.of() : elements;
     }
 }

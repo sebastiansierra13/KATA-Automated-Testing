@@ -28,11 +28,11 @@ public class BaseTest {
         Properties properties = new Properties();
         FileInputStream file = new FileInputStream("src/test/resources/config.properties");
         properties.load(file);
-        String navegador = properties.getProperty("browser").toLowerCase();
+        String browser = properties.getProperty("browser").toLowerCase();
         boolean headless = Boolean.parseBoolean(properties.getProperty("headless"));
 
         // Inicializar WebDriver según el navegador y modo de ejecución
-        driver = getDriver(navegador, headless);
+        driver = getDriver(browser, headless);
 
         // Maximizar ventana y abrir la URL de prueba
         driver.manage().window().maximize();
@@ -41,12 +41,12 @@ public class BaseTest {
 
     /**
      * Método Factory para inicializar WebDriver según el navegador y modo de ejecución.
-     * @param navegador Nombre del navegador (chrome, firefox, edge).
+     * @param browser Nombre del navegador (chrome, firefox, edge).
      * @param headless Indica si debe ejecutarse en modo headless.
      * @return WebDriver configurado.
      */
-    private WebDriver getDriver(String navegador, boolean headless) {
-        switch (navegador) {
+    private WebDriver getDriver(String browser, boolean headless) {
+        switch (browser) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
@@ -63,7 +63,7 @@ public class BaseTest {
                 if (headless) edgeOptions.addArguments("--headless");
                 return new EdgeDriver(edgeOptions);
             default:
-                throw new IllegalArgumentException("Navegador no soportado: " + navegador);
+                throw new IllegalArgumentException("Navegador no soportado: " + browser);
         }
     }
 

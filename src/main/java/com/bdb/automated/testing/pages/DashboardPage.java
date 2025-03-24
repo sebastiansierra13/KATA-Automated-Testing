@@ -24,7 +24,7 @@ public class DashboardPage extends BasePage {
      * Verifica si el usuario se encuentra en el Dashboard.
      * @return true si el usuario ha iniciado sesión correctamente, false si no.
      */
-    public boolean estaEnDashboard() {
-        return obtenerTexto(dashboardHeader).equals("Dashboard");
+    public boolean isInDashboard() {
+        return getText(dashboardHeader).equals("Dashboard");
     }
 }

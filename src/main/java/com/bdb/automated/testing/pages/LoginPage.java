@@ -29,12 +29,12 @@ public class LoginPage extends BasePage {
 
     /**
      * Realiza el proceso de login ingresando credenciales y haciendo clic en el botón de inicio de sesión.
-     * @param usuario Nombre de usuario a ingresar.
-     * @param contraseña Contraseña a ingresar.
+     * @param user Nombre de usuario a ingresar.
+     * @param pass Contraseña a ingresar.
      */
-    public void loginConCredenciales(String usuario, String contraseña) {
-        escribirTexto(usernameInput, usuario);
-        escribirTexto(passwordInput, contraseña);
+    public void loginWithCredentials(String user, String pass) {
+        writeText(usernameInput, user);
+        writeText(passwordInput, pass);
         click(loginButton);
     }
 
@@ -43,14 +43,14 @@ public class LoginPage extends BasePage {
      * Prioriza los mensajes "Required" si existen, de lo contrario, devuelve "Invalid credentials".
      * @return Texto del mensaje de error o "No se encontró ningún mensaje de error."
      */
-    public String obtenerMensajeError() {
-        List<WebElement> requiredMessages = obtenerElementos(requiredMessage);
+    public String getErrorMessage() {
+        List<WebElement> requiredMessages = getElements(requiredMessage);
         if (!requiredMessages.isEmpty()) {
             return requiredMessages.get(0).getText(); // Devuelve "Required"
         }
 
         try {
-            return esperarElementoVisible(invalidCredentialsMessage).getText(); // Espera y devuelve "Invalid credentials"
+            return waitElementVisible(invalidCredentialsMessage).getText(); // Espera y devuelve "Invalid credentials"
         } catch (TimeoutException e) {
             return "No se encontró ningún mensaje de error.";
         }
