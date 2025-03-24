@@ -16,26 +16,24 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: Configurar Java y Maven
+      - name: Configurar Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '24'
+          java-version: '17'
           cache: 'maven'
 
-      - name: Instalar Allure manualmente
-        run: |
-          curl -o allure-2.21.0.tgz -OLs https://github.com/allure-framework/allure2/releases/download/2.21.0/allure-2.21.0.tgz
-          tar -zxvf allure-2.21.0.tgz
-          sudo mv allure-2.21.0 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
-          allure --version
+      - name: Verificar versión de Java
+        run: java -version
 
       - name: Instalar dependencias
-        run: mvn install -DskipTests
+        run: mvn clean install -U -DskipTests
 
       - name: Ejecutar pruebas Selenium
         run: mvn test
+
+      - name: Verificar si Allure generó resultados
+        run: ls -la target/allure-results || echo "Allure results directory not found!"
 
       - name: Generar reportes Allure
         run: mvn allure:report
@@ -44,4 +42,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test-Reports
-          path: target/site/allure-maven/
+          path: target/site/allure-maven/index.html
