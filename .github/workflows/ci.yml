@@ -23,6 +23,12 @@ jobs:
           java-version: '24'
           cache: 'maven'
 
+      - name: Instalar Allure
+        run: |
+          sudo apt-add-repository ppa:qameta/allure
+          sudo apt-get update
+          sudo apt-get install allure
+
       - name: Instalar dependencias
         run: mvn install -DskipTests
 
@@ -36,4 +42,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test-Reports
-          path: target/site/allure-maven/index.html
+          path: target/site/allure-maven/
