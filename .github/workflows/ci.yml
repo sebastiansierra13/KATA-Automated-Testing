@@ -33,7 +33,7 @@ jobs:
         run: mvn allure:report
 
       - name: Guardar reportes como artefacto
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Test-Reports
           path: target/site/allure-maven/index.html
